@@ -1,0 +1,247 @@
+[
+  {
+    "slug": "blueberry",
+    "name": "Blueberry",
+    "game": "Scarlet · Violet — Indigo Disk",
+    "group": "Generation IX",
+    "count": 243
+  },
+  {
+    "slug": "champions",
+    "name": "Champions",
+    "game": "Pokémon Champions",
+    "group": "Generation IX",
+    "count": 208
+  },
+  {
+    "slug": "hyperspace",
+    "name": "Hyperspace",
+    "game": "Legends: Z-A — Mega Dimension",
+    "group": "Generation IX",
+    "count": 132
+  },
+  {
+    "slug": "kitakami",
+    "name": "Kitakami",
+    "game": "Scarlet · Violet — Teal Mask",
+    "group": "Generation IX",
+    "count": 200
+  },
+  {
+    "slug": "lumiose-city",
+    "name": "Lumiose",
+    "game": "Legends: Z-A",
+    "group": "Generation IX",
+    "count": 232
+  },
+  {
+    "slug": "paldea",
+    "name": "Paldea",
+    "game": "Scarlet · Violet",
+    "group": "Generation IX",
+    "count": 400
+  },
+  {
+    "slug": "crown-tundra",
+    "name": "Crown Tundra",
+    "game": "Sword · Shield — Crown Tundra",
+    "group": "Generation VIII",
+    "count": 210
+  },
+  {
+    "slug": "galar",
+    "name": "Galar",
+    "game": "Sword · Shield",
+    "group": "Generation VIII",
+    "count": 400
+  },
+  {
+    "slug": "hisui",
+    "name": "Hisui",
+    "game": "Legends: Arceus",
+    "group": "Generation VIII",
+    "count": 242
+  },
+  {
+    "slug": "isle-of-armor",
+    "name": "Isle of Armor",
+    "game": "Sword · Shield — Isle of Armor",
+    "group": "Generation VIII",
+    "count": 211
+  },
+  {
+    "slug": "letsgo-kanto",
+    "name": "Let’s Go Kanto",
+    "game": "Let's Go Pikachu · Eevee",
+    "group": "Generation VII",
+    "count": 153
+  },
+  {
+    "slug": "original-akala",
+    "name": "Original Akala",
+    "game": "Sun · Moon — Akala",
+    "group": "Generation VII",
+    "count": 130
+  },
+  {
+    "slug": "original-alola",
+    "name": "Original Alola",
+    "game": "Sun · Moon",
+    "group": "Generation VII",
+    "count": 302
+  },
+  {
+    "slug": "original-melemele",
+    "name": "Original Melemele",
+    "game": "Sun · Moon — Melemele",
+    "group": "Generation VII",
+    "count": 120
+  },
+  {
+    "slug": "original-poni",
+    "name": "Original Poni",
+    "game": "Sun · Moon — Poni",
+    "group": "Generation VII",
+    "count": 100
+  },
+  {
+    "slug": "original-ulaula",
+    "name": "Original Ula’ula",
+    "game": "Sun · Moon — Ula’ula",
+    "group": "Generation VII",
+    "count": 130
+  },
+  {
+    "slug": "updated-akala",
+    "name": "Updated Akala",
+    "game": "Ultra Sun · Moon — Akala",
+    "group": "Generation VII",
+    "count": 160
+  },
+  {
+    "slug": "updated-alola",
+    "name": "Updated Alola",
+    "game": "Ultra Sun · Ultra Moon",
+    "group": "Generation VII",
+    "count": 403
+  },
+  {
+    "slug": "updated-melemele",
+    "name": "Updated Melemele",
+    "game": "Ultra Sun · Moon — Melemele",
+    "group": "Generation VII",
+    "count": 150
+  },
+  {
+    "slug": "updated-poni",
+    "name": "Updated Poni",
+    "game": "Ultra Sun · Moon — Poni",
+    "group": "Generation VII",
+    "count": 130
+  },
+  {
+    "slug": "updated-ulaula",
+    "name": "Updated Ula’ula",
+    "game": "Ultra Sun · Moon — Ula’ula",
+    "group": "Generation VII",
+    "count": 160
+  },
+  {
+    "slug": "kalos-central",
+    "name": "Central Kalos",
+    "game": "X · Y — Central",
+    "group": "Generation VI",
+    "count": 153
+  },
+  {
+    "slug": "kalos-coastal",
+    "name": "Coastal Kalos",
+    "game": "X · Y — Coastal",
+    "group": "Generation VI",
+    "count": 153
+  },
+  {
+    "slug": "kalos-mountain",
+    "name": "Mountain Kalos",
+    "game": "X · Y — Mountain",
+    "group": "Generation VI",
+    "count": 151
+  },
+  {
+    "slug": "updated-hoenn",
+    "name": "New Hoenn",
+    "game": "Omega Ruby · Alpha Sapphire",
+    "group": "Generation VI",
+    "count": 211
+  },
+  {
+    "slug": "original-unova",
+    "name": "Original Unova",
+    "game": "Black · White",
+    "group": "Generation V",
+    "count": 156
+  },
+  {
+    "slug": "updated-unova",
+    "name": "Updated Unova",
+    "game": "Black 2 · White 2",
+    "group": "Generation V",
+    "count": 301
+  },
+  {
+    "slug": "extended-sinnoh",
+    "name": "Extended Sinnoh",
+    "game": "Platinum",
+    "group": "Generation IV",
+    "count": 210
+  },
+  {
+    "slug": "original-sinnoh",
+    "name": "Original Sinnoh",
+    "game": "Diamond · Pearl",
+    "group": "Generation IV",
+    "count": 151
+  },
+  {
+    "slug": "updated-johto",
+    "name": "Updated Johto",
+    "game": "HeartGold · SoulSilver",
+    "group": "Generation IV",
+    "count": 256
+  },
+  {
+    "slug": "hoenn",
+    "name": "Original Hoenn",
+    "game": "Ruby · Sapphire · Emerald",
+    "group": "Generation III",
+    "count": 202
+  },
+  {
+    "slug": "original-johto",
+    "name": "Original Johto",
+    "game": "Gold · Silver · Crystal",
+    "group": "Generation II",
+    "count": 251
+  },
+  {
+    "slug": "kanto",
+    "name": "Kanto",
+    "game": "Red · Blue · Yellow",
+    "group": "Generation I",
+    "count": 151
+  },
+  {
+    "slug": "conquest-gallery",
+    "name": "Gallery",
+    "game": "Pokémon Conquest",
+    "group": "Spin-offs",
+    "count": 200
+  },
+  {
+    "slug": "national",
+    "name": "National",
+    "game": "All games",
+    "group": "National",
+    "count": 1025
+  }
+]
