@@ -61,3 +61,31 @@ scripts/seed.mjs    PokéAPI → data/ + sprites/
 
 Plain HTML + CSS + ES modules. No build step and no dependencies — GitHub Pages serves the
 repo root as-is.
+
+## Deploying to GitHub Pages
+
+There's no build step, so Pages can serve the repo root as-is. The commit is already
+made — you just need a remote:
+
+```sh
+# with the GitHub CLI (brew install gh, then gh auth login)
+gh repo create pokedex --public --source=. --push
+gh api -X POST repos/:owner/pokedex/pages -f build_type=legacy \
+  -f 'source[branch]=main' -f 'source[path]=/'
+```
+
+Or from the web: create an empty repo, then
+
+```sh
+git remote add origin git@github.com:<you>/pokedex.git
+git push -u origin main
+```
+
+and turn on **Settings → Pages → Source: Deploy from a branch → `main` / `/ (root)`**.
+
+It lands at `https://<you>.github.io/pokedex/`. All asset paths are relative, so the
+`/pokedex/` subpath works without configuration.
+
+Note that a public repo makes your progress *page* public — not your progress, which
+never leaves your browser. Use a private repo if you'd rather it not be, though Pages
+on a private repo needs a paid plan.
