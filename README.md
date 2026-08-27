@@ -65,29 +65,23 @@ repo root as-is.
 ## Deploying to GitHub Pages
 
 This lives in `qiuey00/qiuey00.github.io`, a **user Pages site**, so it serves from the
-repo root at <https://qiuey00.github.io/> — no subpath. Pages is configured as a legacy
-branch build from `master` / `root`, so deploying is just a push:
+repo root at <https://qiuey00.github.io/> — no subpath. Pages builds from a workflow
+(`.github/workflows/pages.yml`), which uploads the repo root as-is and deploys it, so
+deploying is just a push to `main`:
 
 ```sh
-git push origin main:master
+git push
 ```
 
-`.nojekyll` keeps Pages from running the files through Jekyll and serving them as-is.
-
-The previous site that lived here ("website v1", an earlier Pokemon checklist) is
-preserved on the `website-v1` branch. Delete it once you are sure you do not want it:
+The workflow also has a `workflow_dispatch` trigger, so you can redeploy the current
+`main` without a commit:
 
 ```sh
-git push origin --delete website-v1
+gh workflow run "Deploy Pages"
 ```
 
-**The repo is private, and Pages does not publicly serve a private repo on a free plan** —
-that is why the old site returned 404 even though its build succeeded. Make the repo
-public to put the site online:
+Build logs are under the repo's Actions tab. `.nojekyll` is not needed on this path —
+the workflow never runs Jekyll — but it is kept so a fall back to a legacy branch build
+still serves the files as-is.
 
-```sh
-gh repo edit qiuey00/qiuey00.github.io --visibility public
-```
-
-That publishes the *page*. It does not publish your progress, which never leaves your
-browser.
+Your progress never leaves your browser; only the *page* is published.
