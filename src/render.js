@@ -5,6 +5,12 @@ const statusEl = document.getElementById('status')
 
 const pad = (n) => String(n).padStart(3, '0')
 
+// Every storage box since Generation III is 6 wide by 5 tall — 30 slots. (The
+// Gen I/II PC held 20 per box, but those dexes are played through remakes here.)
+const BOX_COLUMNS = 6
+const BOX_ROWS = 5
+const BOX_SIZE = BOX_COLUMNS * BOX_ROWS
+
 /** Build the picker, sectioned by generation. */
 export function renderPicker(select, index, activeSlug) {
   const groups = new Map()
@@ -101,10 +107,65 @@ export function paintCard(el, entry, sets) {
   star.setAttribute('aria-label', `Mark ${entry.name} shiny`)
 }
 
-export function renderGrid(entries, sets) {
+/** One box: a heading with its caught tally, then up to 30 cards, 6 across. */
+function box(index, entries, sets) {
+  const section = document.createElement('section')
+  section.className = 'box'
+
+  const title = document.createElement('h2')
+  title.className = 'box-title'
+  title.textContent = `Box ${index + 1}`
+
+  const count = document.createElement('span')
+  count.className = 'box-count'
+  count.textContent = `${entries.filter((e) => sets.caught.has(e.id)).length} / ${entries.length}`
+
+  const head = document.createElement('div')
+  head.className = 'box-head'
+  head.append(title, count)
+
+  const slots = document.createElement('div')
+  slots.className = 'box-grid'
+  for (const entry of entries) slots.append(card(entry, sets))
+
+  section.append(head, slots)
+  return section
+}
+
+/**
+ * @param {object}  [opts]
+ * @param {boolean} [opts.boxed]     group into 6 x 5 boxes instead of one flat grid
+ * @param {boolean} [opts.regrouped] a search/filter is narrowing the list, so the
+ *                                   boxes no longer line up with the in-game ones
+ */
+export function renderGrid(entries, sets, { boxed = false, regrouped = false } = {}) {
+  grid.classList.toggle('is-boxed', boxed)
+
   const frag = document.createDocumentFragment()
-  for (const entry of entries) frag.append(card(entry, sets))
+  if (boxed) {
+    if (regrouped && entries.length) {
+      const note = document.createElement('p')
+      note.className = 'box-note'
+      note.textContent =
+        'Boxes repack as you search or filter — clear both to see true in-game box order.'
+      frag.append(note)
+    }
+    for (let i = 0; i < entries.length; i += BOX_SIZE) {
+      frag.append(box(i / BOX_SIZE, entries.slice(i, i + BOX_SIZE), sets))
+    }
+  } else {
+    for (const entry of entries) frag.append(card(entry, sets))
+  }
   grid.replaceChildren(frag)
+}
+
+/** Re-tally the box a just-repainted card sits in. No-op in flat grid view. */
+export function refreshBoxCount(cardEl) {
+  const section = cardEl.closest('.box')
+  if (!section) return
+  const total = section.querySelectorAll('.card').length
+  const caught = section.querySelectorAll('.card.is-caught').length
+  section.querySelector('.box-count').textContent = `${caught} / ${total}`
 }
 
 export function setStatus(message) {

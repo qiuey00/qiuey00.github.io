@@ -65,6 +65,7 @@ body {
   display: flex;
   gap: 8px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .dex-picker { flex: 1; min-width: 0; }
@@ -95,13 +96,20 @@ body {
   cursor: pointer;
   white-space: nowrap;
 }
-.mode-toggle .mode-star { color: var(--text-faint); }
+.mode-toggle .mode-icon { color: var(--text-faint); }
 .mode-toggle[aria-pressed="true"] {
   background: color-mix(in srgb, var(--shiny) 18%, transparent);
   border-color: var(--shiny);
   color: var(--text);
 }
-.mode-toggle[aria-pressed="true"] .mode-star { color: var(--shiny); }
+.mode-toggle[aria-pressed="true"] .mode-icon { color: var(--shiny); }
+
+/* box view is a layout, not a marking mode — give it the neutral accent */
+.mode-boxes[aria-pressed="true"] {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-color: var(--accent);
+}
+.mode-boxes[aria-pressed="true"] .mode-icon { color: var(--accent); }
 
 /* ---- meters ------------------------------------------------------------- */
 .meters { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
@@ -178,6 +186,83 @@ main { padding: 14px max(12px, env(safe-area-inset-left)) 8px; }
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
   gap: 10px;
+}
+
+/* ---- box view ----------------------------------------------------------- */
+/* A PC box holds 30 in a fixed 6 x 5 grid, so the columns can't reflow the way
+   the flat grid's do — the whole point is that the shape matches the game.
+   Cards shrink to fit instead, which is what the in-game box does too. */
+.grid.is-boxed {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.box {
+  background: var(--bg-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px;
+  /* A 6-wide grid can't reflow, so on a very narrow window the box scrolls
+     sideways rather than shrinking cards past the point of recognition.
+     At 390px and up the columns still fit, so this never kicks in on a phone. */
+  overflow-x: auto;
+}
+
+.box-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 2px 8px;
+}
+.box-title {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+.box-count {
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-faint);
+}
+
+.box-note {
+  margin: 0;
+  color: var(--text-faint);
+  font-size: 12px;
+}
+
+.box-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(46px, 1fr));
+  gap: 6px;
+}
+
+/* compact card: at a sixth of the viewport there is only room for the sprite,
+   the number, and a name — the type line is what gets dropped. */
+.box-grid .card {
+  padding: 15px 2px 6px;
+  gap: 0;
+  border-radius: 9px;
+}
+.box-grid .card .sprite {
+  width: 100%;
+  height: auto;
+  max-width: 80px;
+  aspect-ratio: 1;
+}
+.box-grid .card .num { top: 3px; left: 4px; font-size: clamp(8px, 1.8vw, 10px); }
+.box-grid .card .name { font-size: clamp(8px, 1.9vw, 12px); line-height: 1.15; }
+.box-grid .card .meta { display: none; }
+.box-grid .card .star { width: 20px; height: 20px; font-size: 12px; }
+.box-grid .card.is-caught::after {
+  top: 3px; right: 20px;
+  width: 13px; height: 13px;
+  font-size: 9px;
 }
 
 .card {
@@ -327,5 +412,13 @@ main { padding: 14px max(12px, env(safe-area-inset-left)) 8px; }
   .topbar { padding-inline: 20px; }
   main, .footer { padding-inline: 20px; }
   .grid { grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); }
+  .grid.is-boxed { grid-template-columns: 1fr; }
+  /* cap the box so six columns stay card-sized on a wide screen instead of
+     stretching into letterboxes — a PC box is compact in game too */
+  .box { padding: 14px; max-width: 940px; }
+  .box-grid { gap: 10px; }
+  .box-grid .card { padding: 20px 5px 9px; }
+  .box-grid .card .num { font-size: 11px; }
+  .box-grid .card .name { font-size: 13px; }
   .meters { max-width: 560px; }
 }

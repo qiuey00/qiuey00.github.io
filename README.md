@@ -7,6 +7,10 @@ A checklist for tracking Pokédex progress, with each game's dex in its own in-g
   ticking off before you tick it.
 - Tap a card to mark it **caught**; tap the star (or turn on **Shiny mode**) to mark it **shiny**.
 - Search by name or by either number, and filter to Missing / Caught / Shiny.
+- **Boxes** lays the dex out as 6 x 5 PC boxes — 30 per box, the same shape and order as
+  the in-game storage system — so you can plan how the boxes will fill as you catch.
+  Each box shows its own caught tally. Searching or filtering repacks the boxes, so clear
+  both to see true in-game box order.
 - Progress is tracked **per dex** — catching Chikorita in Z-A doesn't tick it in the Johto dex.
 
 ## Running it locally

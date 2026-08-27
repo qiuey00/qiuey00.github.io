@@ -4,16 +4,20 @@ import { loadIndex, loadDex } from './data.js'
 import {
   dexSets, commit, clearDex, exportJson, importJson, isEphemeral, onExternalChange,
 } from './state.js'
-import { renderPicker, renderGrid, renderMeters, paintCard, setStatus, toast } from './render.js'
+import {
+  renderPicker, renderGrid, renderMeters, paintCard, refreshBoxCount, setStatus, toast,
+} from './render.js'
 
 const DEFAULT_SLUG = 'lumiose-city'   // what Jeff is playing
 const LAST_DEX_KEY = 'pokedex-tracker:last-dex'
+const BOX_VIEW_KEY = 'pokedex-tracker:box-view'
 
 const els = {
   select: document.getElementById('dex-select'),
   search: document.getElementById('search'),
   filters: document.querySelector('.filters'),
   shinyMode: document.getElementById('shiny-mode'),
+  boxView: document.getElementById('box-view'),
   grid: document.getElementById('grid'),
   export: document.getElementById('export'),
   import: document.getElementById('import'),
@@ -28,10 +32,13 @@ const view = {
   filter: 'all',
   query: '',
   shinyMode: false,
+  boxed: false,        // lay the dex out as 6 x 5 PC boxes
 }
 
 const rememberDex = (slug) => { try { localStorage.setItem(LAST_DEX_KEY, slug) } catch {} }
 const lastDex = () => { try { return localStorage.getItem(LAST_DEX_KEY) } catch { return null } }
+const rememberBoxView = (on) => { try { localStorage.setItem(BOX_VIEW_KEY, on ? '1' : '0') } catch {} }
+const lastBoxView = () => { try { return localStorage.getItem(BOX_VIEW_KEY) === '1' } catch { return false } }
 
 /** Entries passing the active search + filter. */
 function visibleEntries() {
@@ -53,7 +60,8 @@ function visibleEntries() {
 
 function refreshGrid() {
   const entries = visibleEntries()
-  renderGrid(entries, view.sets)
+  const regrouped = view.filter !== 'all' || view.query.trim() !== ''
+  renderGrid(entries, view.sets, { boxed: view.boxed, regrouped })
   setStatus(entries.length ? '' : 'No Pokémon match that search or filter.')
 }
 
@@ -99,7 +107,9 @@ function toggle(id, kind) {
 
   if (!stillVisible) { refreshGrid(); return }
   const el = els.grid.querySelector(`.card[data-id="${id}"]`)
-  if (el) paintCard(el, entry, view.sets)
+  if (!el) return
+  paintCard(el, entry, view.sets)
+  refreshBoxCount(el)
 }
 
 /* ---- events ------------------------------------------------------------- */
@@ -144,6 +154,13 @@ els.filters.addEventListener('click', (e) => {
 els.shinyMode.addEventListener('click', () => {
   view.shinyMode = !view.shinyMode
   els.shinyMode.setAttribute('aria-pressed', String(view.shinyMode))
+})
+
+els.boxView.addEventListener('click', () => {
+  view.boxed = !view.boxed
+  els.boxView.setAttribute('aria-pressed', String(view.boxed))
+  rememberBoxView(view.boxed)
+  refreshGrid()
 })
 
 // `/` jumps to search, the way you'd expect while scanning a long list.
@@ -204,6 +221,8 @@ onExternalChange(() => {
 /* ---- boot --------------------------------------------------------------- */
 
 async function boot() {
+  view.boxed = lastBoxView()
+  els.boxView.setAttribute('aria-pressed', String(view.boxed))
   try {
     const index = await loadIndex()
     const known = new Set(index.map((d) => d.slug))
